@@ -1,0 +1,56 @@
+log_level: debug
+incoming_path: /srv/libconnected
+smtp_from: LIBCONNECTED<root@example.org>
+smtp_hostname: relay.example.org
+smtp_port: 25
+admin_contact: ADMIN <admin@example.org>
+local_timezone: America/Los_Angeles
+global_defaults:
+  suppressed_address: '1 MAIN ST'
+  address_replace_map:
+    Avenue: Ave
+    Boulevard: Blvd
+    Circle: Cir
+    Court: Ct
+    Drive: Dr
+    Highway: Hwy
+    Lane: Ln
+    Martin Luther King Jr: ML King
+    Place: Pl
+    Post Office Box: PO Box
+    Road: Rd
+    Street: St
+    Beaverton Hillsdale Highway: SW Beaverton Hillsdale Hwy
+    Terrace: Ter
+ilsws:
+  username: *****
+  password: *****
+  hostname: sdws06.sirsidynix.net
+  port: 443
+  webapp: *****
+  client_id: *****
+  user_privilege_override: *****
+  timeout: 20s
+  max_retries: 3
+  max_concurrent: 5
+  token_expires: 3m
+clients:
+  - id: '00'
+    namespace: pps
+    schema: district
+    name: Example
+    contact: Someone<someone@someplace.org>
+    new_defaults:
+      home_library: CEN
+      user_profile: 0_PATRON
+      user_categories:
+        1: 0_PATRON
+        2: US_MAIL
+        3: 89TEST
+        7: CONNECT
+    overlay_defaults:
+      home_library: CEN
+      user_profile: 0_PATRON
+      user_categories:
+        3: 89TEST
+        7: CONNECT

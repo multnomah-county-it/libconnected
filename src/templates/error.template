@@ -1,0 +1,6 @@
+<%= banner %>
+LIBCONNECTED INGEST FAILED
+
+FILE:     <%= filePath %>
+CHECKSUM: <%= checksum %>
+ERROR:    <%= error %>

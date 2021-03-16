@@ -1,0 +1,86 @@
+<%= banner %>
+
+***************** INGESTION REPORT ****************
+
+UUID:           <%= uuid %>
+
+CLIENT:         <%= nid %>, <%= clientInfo.name %>
+SCHEMA:         <%= clientInfo.schema %>
+
+FILE:           <%= filePath %>
+SHA-1:          <%= checksum %>
+SIZE:           <%= fileSize %>
+
+STARTED:        <%= startTimestamp %>
+COMPLETED:      <%= endTimestamp %>
+
+TOTAL RUN TIME: <%= runtime %>ms
+
+********************* RESULTS *********************
+<%_ if (results.barcode) { _%>
+OVERLAY MATCHING BARCODE[<%= results.barcode.length %>]:
+<%_ _.each(results.barcode, result => { _%>
+  <%= result.job.data.record.student_id %>
+    <%- include('patron.template', { p: result.value.patron.fields }) -%>
+<%_ }); _%>
+
+<%_ } _%>
+<%_ if (results.alternateId) { _%>
+OVERLAY MATCHING ALTERNATEID[<%= results.alternateId.length %>]:
+<%_ _.each(results.alternateId, result => { _%>
+  <%= result.job.data.record.student_id %>
+    <%- include('patron.template', { p: result.value.patron.fields }) -%>
+<%_ }); _%>
+
+<%_ } _%>
+<%_ if (results.fuzzy) { _%>
+OVERLAY MATCHING FUZZY[<%= results.fuzzy.length %>]:
+<%_ _.each(results.fuzzy, result => { _%>
+  <%= result.job.data.record.student_id %>
+    <%- include('patron.template', { p: result.value.patron.fields }) -%>
+<%_ }); _%>
+
+<%_ } _%>
+<%_ if (results.new) { _%>
+NEW[<%= results.new.length %>]:
+<%_ _.each(results.new, result => { _%>
+  <%= result.job.data.record.student_id %>
+    <%- include('patron.template', { p: result.value.patron.fields }) -%>
+<%_ }); _%>
+
+<%_ } _%>
+<%_ if (results.ambiguous) { _%>
+REJECT AMBIGUOUS[<%= results.ambiguous.length %>]:
+<%_ _.each(results.ambiguous, result => { _%>
+  <%= result.job.data.record.student_id %>: <%= result.job.data.record.first_name %>, <%= result.job.data.record.middle_name %>, <%= result.job.data.record.last_name %>, <%= result.job.data.record.home_address %>, <%= result.job.data.record.city %>, <%= result.job.data.record.state %>, <%= result.job.data.record.zipcode %>, <%= result.job.data.record.dob %>, <%= result.job.data.record.email %>
+    <% _.each(result.value.ambiguous, subresult => { %>
+      <%- include('patron.template', { p: subresult.fields }) -%>
+    <% }); %>
+<%_ }); _%>
+
+<%_ } _%>
+<%_ if (results.dataTooLong) { _%>
+REJECT DATA FIELD TOO LONG[<%= results.dataTooLong.length %>]:
+<%_ _.each(results.dataTooLong, result => { _%>
+  <%= result.job.data.record.student_id %>: <%= result.job.data.record.first_name %>, <%= result.job.data.record.middle_name %>, <%= result.job.data.record.last_name %>, <%= result.job.data.record.home_address %>, <%= result.job.data.record.city %>, <%= result.job.data.record.state %>, <%= result.job.data.record.zipcode %>, <%= result.job.data.record.dob %>, <%= result.job.data.record.email %>
+<%_ }); _%>
+
+<%_ } _%>
+
+<%_ if (results.error) { _%>
+REJECT API ERROR[<%= results.error.length %>]:
+<%_ _.each(results.error, result => { _%>
+  <%= result.job.data.record.student_id %>
+    `--> <%= result.value.err.message %>
+<%_ }); _%>
+<%_ } _%>
+
+<%_ if (validationErrors && validationErrors.length > 0) { _%>
+REJECT SCHEMA VALIDATION[<%= validationErrors.length %>]:
+<%_ _.each(validationErrors, verr => { _%>
+  <%= verr.record.student_id %>, <%= verr.record.first_name %>, <%= verr.record.middle_name %>, <%= verr.record.last_name %>, <%= verr.record.home_address %>, <%= verr.record.city %>, <%= verr.record.zipcode %>, <%= verr.record.dob %>
+    <%_ _.each(verr.errors, innerError => { _%>
+    `--> <%= innerError %>
+    <%_ }); _%>
+<%_ }); _%>
+<%_ } _%>
