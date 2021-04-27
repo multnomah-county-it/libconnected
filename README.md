@@ -10,6 +10,8 @@ Created initially to support the [ConnectED Library](https://www.imls.gov/issues
 
 Plugins can be defined to support any file format, with schema validation and custom ingestion logic.
 
+![Diagram](/images/diagram_public.png)
+
 ### Features
 
 * Pluggable Transform/Load Logic (currently supporting *Symphony ILSWS*)
