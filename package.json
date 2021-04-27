@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/alivesay/libconnected#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-concurrency": "^1.0.3",
     "axios-retry": "^3.1.8",
     "axios-token-interceptor": "^0.2.0",

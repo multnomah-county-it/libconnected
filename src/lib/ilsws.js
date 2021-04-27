@@ -43,8 +43,7 @@ class ILSWS {
       headers: {
         'sd-originating-app-id': this._originatingAppId, 
         'x-sirs-clientID': config.ilsws.client_id,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
       }
     };
 
